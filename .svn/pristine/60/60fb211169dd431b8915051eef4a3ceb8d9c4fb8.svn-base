@@ -1,0 +1,20 @@
+package com.yado.bos.service;
+
+import com.yado.bos.entity.Staff;
+import com.yado.bos.utils.PageBean;
+
+public interface IStaffService {
+
+	public void save(Staff model) ;
+
+	public void pageQuery(PageBean pageBean);
+
+	public void deleteBenth(String ids);
+
+	public Staff findById(String id);
+
+	public void update(Staff staff);
+		
+
+	
+}

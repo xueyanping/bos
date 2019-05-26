@@ -1,0 +1,10 @@
+package com.yado.bos.dao.impl;
+
+import org.springframework.stereotype.Repository;
+
+import com.yado.bos.dao.ISubareaDao;
+import com.yado.bos.entity.Subarea;
+@Repository
+public class SubareaDaoImpl extends BaseDaoImpl<Subarea> implements ISubareaDao {
+
+}

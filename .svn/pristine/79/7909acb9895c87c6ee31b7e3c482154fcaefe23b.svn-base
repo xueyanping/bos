@@ -1,0 +1,8 @@
+package com.yado.bos.dao;
+
+import com.yado.bos.entity.Subarea;
+
+public interface ISubareaDao extends IBaseDao<Subarea>{
+	
+
+}

@@ -1,0 +1,36 @@
+package com.yado.bos.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.yado.bos.dao.ISubareaDao;
+import com.yado.bos.entity.Subarea;
+import com.yado.bos.service.ISubareaService;
+import com.yado.bos.utils.PageBean;
+
+@Service
+@Transactional
+public class SubareaServiceImpl implements ISubareaService {
+
+	@Autowired
+	ISubareaDao subareaDao;
+	
+	@Override
+	public void save(Subarea model) {
+		subareaDao.save(model);
+	}
+
+	@Override
+	public void pageQuery(PageBean pageBean) {
+			subareaDao.pageQuery(pageBean);
+	}
+
+	@Override
+	public List<Subarea> findAll() {			
+		return subareaDao.findAll();
+	}
+
+}

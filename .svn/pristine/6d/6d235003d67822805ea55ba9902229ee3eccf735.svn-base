@@ -1,0 +1,35 @@
+package com.yado.bos.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.yado.bos.dao.IRegionDao;
+import com.yado.bos.entity.Region;
+import com.yado.bos.service.IRegionService;
+
+@Service
+@Transactional
+public class RegionServiceImpl implements IRegionService {
+
+	@Autowired
+	private IRegionDao regionDao;
+	@Override
+	public void save(List<Region> regionList) {
+		for (Region region : regionList) {
+			regionDao.save(region);
+
+		}
+			}
+	@Override
+	public void saveOrUpdate(List<Region> regionList) {
+		for (Region region : regionList) {
+			regionDao.saveOrUpdate(region);
+		}
+		
+		
+	}
+
+}
