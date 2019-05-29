@@ -10,4 +10,6 @@ public interface IRegionDao extends IBaseDao<Region> {
 
 	
 
+	
+
 }

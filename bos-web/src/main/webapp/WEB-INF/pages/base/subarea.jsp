@@ -57,19 +57,19 @@
 			'subareaId' : rows[0].id
 		}, function(data) {
 			if (data != null) {
-				//alert(data.region.province+""+data.region.city+""+data.region.district);
 				$('#editSubareaWindow').window("open");
 				$("#editSubareaWindow [name=id]").val(data.id);
-				$("#editSubareaWindow #regionInfo").val(data.region.province+""+data.region.city+""+data.region.district);
 				$("#editSubareaWindow [name=addresskey]").val(data.addresskey);
 				$("#editSubareaWindow [name=startnum]").val(data.startnum);
 				$("#editSubareaWindow [name=endnum]").val(data.endnum);
 				var single = data.single;
-				//alert(single);
-			//	var options = $("#editSubareaWindow select").find("option");
+				var area = data.region.province+""+data.region.city+""+data.region.district;
+				
+				$("#editSubareaWindow #regionName").combobox("setValue",area);
 				
 				$("#editSubareaWindow [name=position]").val(data.position);
 				
+					$("#single").combobox("setValue",data.single);
 			}
 
 		});
@@ -422,7 +422,7 @@
 					$(function() {
 						$("#edit").click(function() {							
 							 var r = $("#editSubareaForm").form("validate");
-							alert(r);
+							//alert(r);
 							if (r) {
 								$("#editSubareaForm").submit();
 							}
@@ -447,7 +447,7 @@
 					</tr> -->
 					<tr>
 						<td>选择区域</td>
-						<td><input class="easyui-combobox" name="region.id" id="regionInfo"
+						<td><input class="easyui-combobox" name="region.id" id="regionName"
 							data-options="valueField:'id',textField:'name',mode:'remote',url:'regionAction_listajax.action'" />
 						</td>
 					</tr>
@@ -468,7 +468,7 @@
 					</tr>
 					<tr>
 						<td>单双号</td>
-						<td><select class="easyui-combobox" name="single"
+						<td><select class="easyui-combobox" name="single" id="single"
 							style="width: 150px;">
 								<option value="0">单双号</option>
 								<option value="1">单号</option>

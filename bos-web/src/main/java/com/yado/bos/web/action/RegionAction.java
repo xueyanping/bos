@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,15 +126,23 @@ public class RegionAction extends BaseAction<Region> {
 	/**
 	 * 查询所有区域，写回json数据
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
-	public String listajax() {
+	public String listajax() throws UnsupportedEncodingException {
+//		if(q!=null) {
+//			q = new String(q.getBytes("ISO8859-1"),"utf-8");
+//		}
+		
 		List<Region> list = null;
 		if(StringUtils.isBlank(q)) {
 			list = regionService.findAllArea();
 		}else {
 			list = regionService.findListByQ(q);
 		}
-		this.java2Json(list, new String[]{"subareas"});
+		if(list!=null&&list.size()>0) {
+			this.java2Json(list, new String[]{"subareas"});
+		}
+		
 		return NONE;
 	}
 	

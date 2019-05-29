@@ -69,6 +69,7 @@ public class SubareaAction extends BaseAction<Subarea>{
 	}
 	
 	public String edit() {
+		
 		subareaService.updateSubarea(model);
 			return LIST;
 		}

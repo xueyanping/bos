@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yado.bos.dao.IRegionDao;
 import com.yado.bos.dao.ISubareaDao;
 import com.yado.bos.entity.Region;
 import com.yado.bos.entity.Subarea;
+import com.yado.bos.service.IRegionService;
 import com.yado.bos.service.ISubareaService;
 import com.yado.bos.utils.PageBean;
 
@@ -20,7 +22,9 @@ public class SubareaServiceImpl implements ISubareaService {
 
 	@Autowired
 	ISubareaDao subareaDao;
-	
+	@Autowired
+	IRegionService regionService;
+
 	@Override
 	public void save(Subarea model) {
 		subareaDao.save(model);
@@ -28,11 +32,11 @@ public class SubareaServiceImpl implements ISubareaService {
 
 	@Override
 	public void pageQuery(PageBean pageBean) {
-			subareaDao.pageQuery(pageBean);
+		subareaDao.pageQuery(pageBean);
 	}
 
 	@Override
-	public List<Subarea> findAll() {			
+	public List<Subarea> findAll() {
 		return subareaDao.findAll();
 	}
 
@@ -40,7 +44,7 @@ public class SubareaServiceImpl implements ISubareaService {
 	public List<Subarea> findListNotAssociation() {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Subarea.class);
 		detachedCriteria.add(Restrictions.isNull("decidedzone"));
-		return subareaDao.findByCriteria(detachedCriteria );
+		return subareaDao.findByCriteria(detachedCriteria);
 	}
 
 	@Override
@@ -53,7 +57,7 @@ public class SubareaServiceImpl implements ISubareaService {
 
 	@Override
 	public List<Object> findSubareasGroupByProvince() {
-		
+
 		return subareaDao.findSubareasGroupByProvince();
 	}
 
@@ -72,7 +76,25 @@ public class SubareaServiceImpl implements ISubareaService {
 
 	@Override
 	public void updateSubarea(Subarea model) {
-		subareaDao.update(model);		
+//		List<Region> allRegion = regionService.findAllArea();
+//		if(allRegion !=null && allRegion.size()>0) {
+//			System.out.println(allRegion.size());
+//		}
+		String regionInfo = model.getRegion().getId();
+		if (regionInfo.contains("市")) {
+			String regionId = null;
+			List<Region> allRegion = regionService.findAllArea();
+			for (Region region : allRegion) {
+				if ((region.getProvince() + "" + region.getCity() + "" + region.getDistrict()).equals(regionInfo)) {
+					String id = region.getId();
+					model.getRegion().setId(id);
+					break;
+				}
+			}
+
+		}
+
+		subareaDao.saveOrUpdate(model);
 	}
 
 	@Override

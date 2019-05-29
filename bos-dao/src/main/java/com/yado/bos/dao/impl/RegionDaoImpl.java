@@ -17,6 +17,9 @@ public class RegionDaoImpl extends BaseDaoImpl<Region> implements IRegionDao {
 		List<Region> list = (List<Region>) this.getHibernateTemplate().find(Hql, "%"+q+"%","%"+q+"%","%"+q+"%","%"+q+"%","%"+q+"%");
 		return list;
 	}
+	
+	
+	
 
 	
 
